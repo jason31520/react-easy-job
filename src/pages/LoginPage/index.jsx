@@ -1,11 +1,11 @@
 import {useState} from 'react'
+import {NavLink} from 'react-router-dom'
 import {
   NavBar, 
   Space,
   List,
   Form,
   Input,
-  Radio,
   Button
 } from 'antd-mobile'
 import Logo from '../../components/Logo/logo'
@@ -35,6 +35,7 @@ export default function Login() {
         </List>
         <Space direction='vertical' block>
           <Button block color='primary'>登录</Button>
+          <NavLink to='/register'><Button block>还没有账户</Button></NavLink>
         </Space>
     </div>
   )
