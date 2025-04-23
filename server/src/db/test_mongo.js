@@ -14,35 +14,47 @@ const userSchema = mongoose.Schema({
 })
 const UserModel = mongoose.model('user', userSchema)
 
+const username = 'Jason31520'
+const newUsername = 'SmallDadada'
+
 function testSave() {
   const user = {
-    username: 'Jason31520',
+    username: username,
     password: md5('123456'),
     type: 'talent'
-    ,
   }
   const userModel = new UserModel(user)
   userModel.save(user)
 }
 
 function testFind() {
-  const loadUsers = UserModel.find()
-  console.log('loadUsers', loadUsers)
-  const loadUser = UserModel.findOne({ _id: '6808f4df9cc5e24bf0765728'})
-  console.log('loadUser', loadUser)
+  UserModel.findOne({ username: username })
+  .then(result => {
+    console.log('Find one result', result)
+  })
 }
 
 function testUpdate() {
-  const result = UserModel.findByIdAndUpdate(
-    '6808f4df9cc5e24bf0765728',
-    { username: 'XDadada' },
+  UserModel.findOneAndUpdate(
+    { username: username },
+    { username: newUsername },
     { new: true }
-  )
-  console.log('Finish findByIdAndUpdate', result)
+  ).then(result => {
+    console.log('Finish update user', result)
+  })
 }
 
 function testDelete() {
-  UserModel.deleteOne({ username:'Jason31520'})
+  UserModel.deleteOne({ username: newUsername })
+  .then(result => {
+    console.log(result)
+  })
+  .catch(err => {
+    console.log('Failed to delete', err)
+  })
 }
 
+testSave()
+testFind()
+testUpdate()
 testDelete()
