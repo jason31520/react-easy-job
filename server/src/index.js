@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const userRouter = require('./router/user')
 
-app.get('/', (req, res) => {
-  res.send('Hello from Server!');
-});
+app.use('/api/user', userRouter)
 
+const port = 6500;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Easy-Job-Server is running on http://localhost:${port}`);
 });
