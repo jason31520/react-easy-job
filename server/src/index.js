@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const userRouter = require('./router/user')
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use('/api/user', userRouter)
 
 const port = 6500;
