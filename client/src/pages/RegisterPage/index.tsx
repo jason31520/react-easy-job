@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {
   NavBar, 
@@ -10,22 +10,24 @@ import {
   Button
 } from 'antd-mobile'
 import Logo from '../../components/Logo/logo'
+import {User} from '../../models/User'
+import {register} from '../../redux/actions'
 
+
+
+let user = new User('', '', '', 'talent')
 export default function Register() {
-  const [user, setUser] = useState({'userType': 'talent'})
-
-  function changeUserInfo(name, val) {
-    let newUser = {...user}
-    newUser[name] = val
-    setUser(newUser)
+  function changeUserInfo(name: string, val: string) {
+    user = {...user, [name]: val}
+    console.log(user)
   }
 
-  function changeUserType(userType) {
-    changeUserInfo('userType', userType)
+  function changeUserType(type: string) {
+    changeUserInfo('type', type)
   }
 
-  function register() {
-    console.log('#', user)
+  function registerUser() {
+    register(user)
   }
 
   return (
@@ -54,7 +56,7 @@ export default function Register() {
           </Form>
         </List>
         <Space direction='vertical' block>
-          <Button block color='primary' onClick={register}>注册</Button>
+          <Button block color='primary' onClick={registerUser}>注册</Button>
           <NavLink to='/login'><Button block color='success'>已有账号</Button></NavLink>
         </Space>
     </div>
