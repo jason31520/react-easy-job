@@ -16,7 +16,7 @@ import {changeUsername, changePassword, changeConfirmPassword, changeType} from 
 
 export default function Register() {
   const dispatch = useAppDispatch()
-  const user = useAppSelector((state) => state.user)
+  const user = useAppSelector((state) => state.user.value)
 
   function handleChangeUserName(username: string) {
     dispatch(changeUsername(username))
@@ -53,7 +53,7 @@ export default function Register() {
             <Form.Item label='确认密码' name='confirmPassword'>
               <Input placeholder='请输入确认密码' type='password' onChange={val => {handleChangeConfirmPassword(val)}} />
             </Form.Item>
-            <Form.Item label='用户类型' name='userType'>
+            <Form.Item label='用户类型' name='userType' initialValue={user.type}>
               <Radio.Group>
                 <Space direction='horizontal' block>
                   <Radio value='talent' block onChange={()=>handleChangeType('talent')}>牛人</Radio>

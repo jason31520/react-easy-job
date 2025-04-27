@@ -14,7 +14,7 @@ import {changeUsername, changePassword} from '../../redux/user/userSlice'
 
 export default function Login() {
   const dispatch = useAppDispatch()
-  const user = useAppSelector((state) => state.user)
+  const user = useAppSelector((state) => state.user.value)
 
   function handleChangeUserName(username: string) {
     dispatch(changeUsername(username))
@@ -29,7 +29,7 @@ export default function Login() {
       <NavBar backIcon={false}>Easy&nbsp;Job</NavBar>
       <Logo />
         <List>
-          <Form layout='horizontal'>
+          <Form layout='horizontal' initialValues={user}>
             <Form.Item label='用户名' name='username'>
               <Input placeholder='请输入用户名' clearable onChange={val => {handleChangeUserName(val)}} />
             </Form.Item>
