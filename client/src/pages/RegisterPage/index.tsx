@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom'
 import {
   NavBar, 
   Space,
@@ -17,6 +17,7 @@ import {reqRegister} from '../../api'
 
 export default function Register() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const user = useAppSelector((state) => state.user.value)
 
   function handleChangeUserName(username: string) {
@@ -47,7 +48,12 @@ export default function Register() {
 
     reqRegister(user)
     .then(response => {
-      console.log('response', response)
+      const responseData = response.data
+      if (responseData.code == 0) {
+        navigate('/main', {replace: true})
+      } else {
+        alert('Register failed: ' + responseData.msg)
+      }
     })
     .catch(err => {
       console.log('Failed to register: ', err.message)

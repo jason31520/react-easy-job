@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:6500'
+  baseURL: 'http://localhost:6500/api'
 });
 
 export default function ajax(url: string = '', data: { [key: string]: any } = {}, type: string = 'GET') {
