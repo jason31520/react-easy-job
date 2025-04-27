@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+const api = axios.create({
+  baseURL: 'http://localhost:6500'
+});
+
 export default function ajax(url: string = '', data: { [key: string]: any } = {}, type: string = 'GET') {
   if (type == 'GET') {
     let dataStr = ''
@@ -11,8 +15,8 @@ export default function ajax(url: string = '', data: { [key: string]: any } = {}
       url = url + '?' + dataStr
     }
 
-    return axios.get(url)
+    return api.get(url)
   }
 
-  return axios.post(url, data)
+  return api.post(url, data)
 }

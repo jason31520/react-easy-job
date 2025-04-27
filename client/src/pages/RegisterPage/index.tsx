@@ -12,6 +12,7 @@ import {
 import Logo from '../../components/Logo/logo'
 import {useAppSelector, useAppDispatch} from '../../hooks/common'
 import {changeUsername, changePassword, changeConfirmPassword, changeType} from '../../redux/user/userSlice'
+import {reqRegister} from '../../api'
 
 
 export default function Register() {
@@ -35,7 +36,22 @@ export default function Register() {
   }
 
   function handleRegisterUser() {
-    
+    if (!user.username || !user.password || !user.confirmPassword) {
+      alert('Please fill information.')
+      return
+    }
+    if (user.password !== user.confirmPassword) {
+      alert('The password and confirm password are different.')
+      return
+    }
+
+    reqRegister(user)
+    .then(response => {
+      console.log('response', response)
+    })
+    .catch(err => {
+      console.log('Failed to register: ', err.message)
+    })
   }
 
   return (
