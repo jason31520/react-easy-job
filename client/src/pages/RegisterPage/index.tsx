@@ -10,24 +10,32 @@ import {
   Button
 } from 'antd-mobile'
 import Logo from '../../components/Logo/logo'
-import {User} from '../../models/User'
-import {register} from '../../redux/actions'
+import {useAppSelector, useAppDispatch} from '../../hooks/common'
+import {changeUsername, changePassword, changeConfirmPassword, changeType} from '../../redux/user/userSlice'
 
 
-
-let user = new User('', '', '', 'talent')
 export default function Register() {
-  function changeUserInfo(name: string, val: string) {
-    user = {...user, [name]: val}
-    console.log(user)
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.user)
+
+  function handleChangeUserName(username: string) {
+    dispatch(changeUsername(username))
   }
 
-  function changeUserType(type: string) {
-    changeUserInfo('type', type)
+  function handleChangePassword(password: string) {
+    dispatch(changePassword(password))
   }
 
-  function registerUser() {
-    register(user)
+  function handleChangeConfirmPassword(confirmPassword: string) {
+    dispatch(changeConfirmPassword(confirmPassword))
+  }
+
+  function handleChangeType(type: string) {
+    dispatch(changeType(type))
+  }
+
+  function handleRegisterUser() {
+    
   }
 
   return (
@@ -37,26 +45,26 @@ export default function Register() {
         <List>
           <Form layout='horizontal' initialValues={user}>
             <Form.Item label='用户名' name='username'>
-              <Input placeholder='请输入用户名' onChange={val => {changeUserInfo('username', val)}} />
+              <Input placeholder='请输入用户名' onChange={val => {handleChangeUserName(val)}} />
             </Form.Item>
             <Form.Item label='密码' name='password'>
-              <Input placeholder='请输入密码' type='password' onChange={val => {changeUserInfo('password', val)}} />
+              <Input placeholder='请输入密码' type='password' onChange={val => {handleChangePassword(val)}} />
             </Form.Item>
             <Form.Item label='确认密码' name='confirmPassword'>
-              <Input placeholder='请输入确认密码' type='password' onChange={val => {changeUserInfo('confirmPassword', val)}} />
+              <Input placeholder='请输入确认密码' type='password' onChange={val => {handleChangeConfirmPassword(val)}} />
             </Form.Item>
             <Form.Item label='用户类型' name='userType'>
               <Radio.Group>
                 <Space direction='horizontal' block>
-                  <Radio value='talent' block onChange={()=>changeUserType('talent')}>牛人</Radio>
-                  <Radio value='boss' block onChange={()=>changeUserType('boss')}>老板</Radio>
+                  <Radio value='talent' block onChange={()=>handleChangeType('talent')}>牛人</Radio>
+                  <Radio value='boss' block onChange={()=>handleChangeType('boss')}>老板</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
           </Form>
         </List>
         <Space direction='vertical' block>
-          <Button block color='primary' onClick={registerUser}>注册</Button>
+          <Button block color='primary' onClick={handleRegisterUser}>注册</Button>
           <NavLink to='/login'><Button block color='success'>已有账号</Button></NavLink>
         </Space>
     </div>

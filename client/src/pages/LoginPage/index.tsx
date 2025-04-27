@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {
   NavBar, 
@@ -9,14 +9,19 @@ import {
   Button
 } from 'antd-mobile'
 import Logo from '../../components/Logo/logo'
+import {useAppSelector, useAppDispatch} from '../../hooks/common'
+import {changeUsername, changePassword} from '../../redux/user/userSlice'
 
 export default function Login() {
-  const [user, setUser] = useState({})
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.user)
 
-  function handleChange(name, val) {
-    let newUser = {...user}
-    newUser[name] = val
-    setUser(newUser)
+  function handleChangeUserName(username: string) {
+    dispatch(changeUsername(username))
+  }
+
+  function handleChangePassword(password: string) {
+    dispatch(changePassword(password))
   }
 
   return (
@@ -26,10 +31,10 @@ export default function Login() {
         <List>
           <Form layout='horizontal'>
             <Form.Item label='用户名' name='username'>
-              <Input placeholder='请输入用户名' clearable onChange={val => {handleChange('username', val)}} />
+              <Input placeholder='请输入用户名' clearable onChange={val => {handleChangeUserName(val)}} />
             </Form.Item>
             <Form.Item label='密码' name='password'>
-              <Input placeholder='请输入密码' clearable type='password' onChange={val => {handleChange('password', val)}} />
+              <Input placeholder='请输入密码' clearable type='password' onChange={val => {handleChangePassword(val)}} />
             </Form.Item>
           </Form>
         </List>
