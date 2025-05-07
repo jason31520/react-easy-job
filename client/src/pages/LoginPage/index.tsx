@@ -13,6 +13,7 @@ import Logo from '../../components/Logo/logo'
 import {useAppSelector, useAppDispatch} from '../../hooks/common'
 import {changeUsername, changePassword} from '../../redux/user/userSlice'
 import {reqLogin} from '../../api'
+import { LoginUser } from '../../models/User'
 
 export default function Login() {
   const dispatch = useAppDispatch()
@@ -37,7 +38,9 @@ export default function Login() {
     .then(response => {
       const responseData = response.data
       if (responseData.code == 0) {
-        Cookies.set('userid', responseData.data['_id'])
+        const {_id: id, username, type} = responseData.data
+        const loginUser = new LoginUser(id, username, type)
+        Cookies.set('loginUser', JSON.stringify(loginUser))
         navigate('/main', {replace: true})
       } else {
         alert('Login failed: ' + responseData.msg)

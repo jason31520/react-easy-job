@@ -1,4 +1,4 @@
-export class User {
+class User {
   username: string
   password: string
   confirmPassword: string
@@ -15,3 +15,20 @@ export class User {
     this.type = type
   }
 }
+
+class LoginUser {
+  id: string
+  username: string
+  type: string
+  constructor(
+    id: string,
+    username: string,
+    type: string
+  ) {
+    this.id = id
+    this.username = username
+    this.type = type
+  }
+}
+
+export {User, LoginUser}

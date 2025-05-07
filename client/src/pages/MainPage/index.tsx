@@ -1,8 +1,8 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import { NavBar } from 'antd-mobile'
 import Cookies from 'js-cookie'
+import { LoginUser } from '../../models/User'
 import NavFooter from '../../components/NavFooter'
 import Explore from '../../components/Explore'
 import Message from '../../components/Message'
@@ -12,20 +12,19 @@ import './index.css'
 
 export default function Register() {
   const navigate = useNavigate()
-  const userId = Cookies.get('userid')
-  useEffect(() => {
-    if (!userId) {
-      navigate('/login', {replace: true})
-    }
-  })
-
-  const userType = 'talent'
-  const homeTitle = userType == 'talent' ? 'Boss' : 'Talent'
+  const loginUserStr = Cookies.get('loginUser')
+  let exploreTitle
+  if (loginUserStr) {
+    const loginUser: LoginUser = JSON.parse(loginUserStr);
+    exploreTitle = loginUser.type == 'talent' ? 'Boss' : 'Talent'
+  } else {
+    navigate('/login', {replace: true})
+  }
   
   return (
     <div className="app">
       <div className="top">
-        <NavBar backIcon={false}>{homeTitle}</NavBar>
+        <NavBar backIcon={false}>{exploreTitle}</NavBar>
       </div>
       <div className="body">
         <Routes>

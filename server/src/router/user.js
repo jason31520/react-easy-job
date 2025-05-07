@@ -56,7 +56,8 @@ router.post('/login', (req, res) => {
         'code': 0,
         'data': {
           _id: user._id,
-          username
+          username,
+          type: user.type
         },
         'msg': 'sucess'
       })
