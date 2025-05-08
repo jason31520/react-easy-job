@@ -15,25 +15,25 @@ export default function Register() {
   const loginUserStr = Cookies.get('loginUser')
   let exploreTitle
   if (loginUserStr) {
-    const loginUser: LoginUser = JSON.parse(loginUserStr);
+    const loginUser: LoginUser = JSON.parse(loginUserStr)
     exploreTitle = loginUser.type == 'talent' ? 'Boss' : 'Talent'
   } else {
     navigate('/login', {replace: true})
   }
   
   return (
-    <div className="app">
-      <div className="top">
+    <div className='app'>
+      <div className='top'>
         <NavBar backIcon={false}>{exploreTitle}</NavBar>
       </div>
-      <div className="body">
+      <div className='body'>
         <Routes>
           <Route path='/explore' element={<Explore />} />
           <Route path='/message' element={<Message />} />
           <Route path='/me' element={<PersonalCenter />} />
         </Routes>
       </div>
-      <div className="bottom">
+      <div className='bottom'>
         <NavFooter />
       </div>
     </div>
