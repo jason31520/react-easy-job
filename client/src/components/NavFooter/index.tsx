@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { TabBar } from 'antd-mobile'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { EyeOutline, MessageOutline, UserOutline } from 'antd-mobile-icons'
+import { navFooterTabs } from '../../constants/MainPageConstants'
 
 export default function NavFooter() {
   const [activeTab, setActiveTab] = useState<string>('/explore')
@@ -17,27 +17,9 @@ export default function NavFooter() {
     navigate(key)
   }
 
-  const tabs = [
-    {
-      key: '/explore',
-      title: '探索',
-      icon: <EyeOutline />,
-    },
-    {
-      key: '/message',
-      title: '消息',
-      icon: <MessageOutline />,
-    },
-    {
-      key: '/me',
-      title: '我的',
-      icon: <UserOutline />,
-    },
-  ]
-
   return (
     <TabBar activeKey={activeTab} onChange={(key) => handleTabChange(key)}>
-      {tabs.map(item => (
+      {navFooterTabs.map(item => (
         <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
       ))}
     </TabBar>
