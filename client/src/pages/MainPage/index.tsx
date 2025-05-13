@@ -20,7 +20,7 @@ export default function Register() {
   
   if (loginUserStr) {
     const loginUser: LoginUser = JSON.parse(loginUserStr)
-    exploreTitle = loginUser.type == 'talent' ? 'Boss' : 'Talent'
+    exploreTitle = loginUser.type === 'talent' ? '职位列表' : '大神列表'
   } else {
     navigate('/login', {replace: true})
   }

@@ -3,7 +3,7 @@ const md5 = require('blueimp-md5')
 const UserModel = require('../db/models')
 
 const router = express.Router()
-const withoutPasswordFilter = {password: 0}
+const withoutPasswordFilter = {password: 0, __v: 0}
 
 router.post('/register', (req, res) => {
   const {username, password, type} = req.body
@@ -64,5 +64,17 @@ router.post('/login', (req, res) => {
     }
   })
 })
+
+router.get('/list', (req, res) => {
+  const { type } = req.query
+  UserModel.find({ type }, withoutPasswordFilter)
+    .then(users => {
+      res.json({
+        'code': 0,
+        'data': users,
+        'msg': 'sucess'
+      })
+    })
+}) 
 
 module.exports = router

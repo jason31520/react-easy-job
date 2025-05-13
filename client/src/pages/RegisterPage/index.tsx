@@ -9,6 +9,7 @@ import {
   Radio,
   Button
 } from 'antd-mobile'
+import { UserType } from '../../constants/UserConstants'
 import Logo from '../../components/Logo/logo'
 import {useAppSelector, useAppDispatch} from '../../hooks/common'
 import {changeUsername, changePassword, changeConfirmPassword, changeType} from '../../redux/user/userSlice'
@@ -49,7 +50,7 @@ export default function Register() {
     reqRegister(user)
     .then(response => {
       const responseData = response.data
-      if (responseData.code == 0) {
+      if (responseData.code === 0) {
         navigate('/main', {replace: true})
       } else {
         alert('Register failed: ' + responseData.msg)
@@ -78,8 +79,8 @@ export default function Register() {
             <Form.Item label='用户类型' name='userType' initialValue={user.type}>
               <Radio.Group>
                 <Space direction='horizontal' block>
-                  <Radio value='talent' block onChange={()=>handleChangeType('talent')}>牛人</Radio>
-                  <Radio value='boss' block onChange={()=>handleChangeType('boss')}>老板</Radio>
+                  <Radio value={UserType.TALENT} block onChange={()=>handleChangeType(UserType.TALENT)}>牛人</Radio>
+                  <Radio value={UserType.BOSS} block onChange={()=>handleChangeType(UserType.BOSS)}>老板</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
